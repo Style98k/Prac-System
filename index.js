@@ -22,12 +22,33 @@ function updateOrderList() {
 }
 
 function checkout() {
+    const emailInput = document.getElementById('email').value.trim();
+
     if (orders.length === 0) {
         alert('No items in order!');
-    } else {
-        alert(`Thank you! Your total is ₱${total}`);
-        orders = [];
-        total = 0;
-        updateOrderList();
+        return;
     }
+
+    if (!emailInput) {
+        alert('Please enter your email before checkout.');
+        return;
+    }
+
+    // Basic email validation (simple regex)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    alert(`Thank you for your order!\nTotal: ₱${total}\nConfirmation will be sent to: ${emailInput}`);
+
+    // Clear order and total
+    orders = [];
+    total = 0;
+    updateOrderList();
+
+    // Clear email input
+    document.getElementById('email').value = '';
 }
+

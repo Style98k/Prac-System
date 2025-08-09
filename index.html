@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>BSCS Ordering System</h1>
-
+   
     <div class="menu">
         <h2>Menu</h2>
         <div class="item">
@@ -31,6 +31,25 @@
         <p>Total: ₱<span id="totalPrice">0</span></p>
         <button onclick="checkout()">Checkout</button>
     </div>
+
+     <div class="customer-info">
+    <h2>Customer Information</h2>
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+    
+    </div>
+
+    <div class="item">
+    <span>Burger - ₱50</span>
+    <p>A delicious beef burger with fresh lettuce and tomato.</p>
+    <button onclick="addToOrder('Burger', 50)">Add</button>
+    </div>
+
+    <div class="about-us">
+    <h2>About Us</h2>
+    <p>Welcome to BSCS Ordering System! We serve the best fast food in town with fresh ingredients and great taste.</p>
+    </div>
+
 
     <script src="index.js"></script>
 </body>
