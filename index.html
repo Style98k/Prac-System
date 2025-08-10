@@ -7,50 +7,84 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>BSCS Ordering System</h1>
-   
-    <div class="menu">
-        <h2>Menu</h2>
-        <div class="item">
-            <span>Burger - ₱50</span>
-            <button onclick="addToOrder('Burger', 50)">Add</button>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-icon" id="sidebarIcon">&#9776;</div>
+            <div id="sidebarContent"></div>
         </div>
-        <div class="item">
-            <span>Fries - ₱30</span>
-            <button onclick="addToOrder('Fries', 30)">Add</button>
+        <div class="main-content">
+            <h1>BSCS Ordering System</h1>
+
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2>Welcome to our Fastfood!</h2>
+                <p>
+                    Enjoy delicious meals, quick service, and affordable prices. 
+                    Order your favorites and experience the best fastfood in town!
+                </p>
+            </div>
+
+            <!-- Menu Section -->
+            <div class="menu" id="menuSection">
+                <h2>Menu</h2>
+                <div class="menu-grid">
+                    <div class="item">
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80" alt="Burger" class="item-img">
+                        <span>Burger - ₱50</span>
+                        <p>Juicy beef patty, fresh lettuce, tomato, and cheese in a soft bun. Perfect for your cravings!</p>
+                        <button onclick="addToOrder('Burger', 50)">Add</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Fries" class="item-img">
+                        <span>Fries - ₱30</span>
+                        <p>Crispy golden fries, lightly salted and served hot. The perfect side for any meal!</p>
+                        <button onclick="addToOrder('Fries', 30)">Add</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Softdrink" class="item-img">
+                        <span>Softdrink - ₱20</span>
+                        <p>Refreshing cold softdrink to complete your meal. Choose from Coke, Sprite, or Royal!</p>
+                        <button onclick="addToOrder('Softdrink', 20)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order" id="orderSection" style="display:none;">
+                <h2>Your Order</h2>
+                <ul id="orderList"></ul>
+                <p>Total: ₱<span id="totalPrice">0</span></p>
+                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+            </div>
+
+            <div class="customer-info" id="customerSection" style="display:none;">
+                <h2>Customer Information</h2>
+                <p id="customerTotal" style="color:#ffb347; font-size:1.15em; font-weight:600; margin-bottom:10px;"></p>
+                <label for="name">Customer Name:</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <label for="feedback">Feedback:</label>
+                <textarea id="feedback" placeholder="Your feedback..." rows="3"></textarea>
+                <label for="payment">Mode of Payment:</label>
+                <select id="payment" onchange="toggleCashInput()">
+                    <option value="Cash">Cash</option>
+                    <option value="Gcash">Gcash</option>
+                </select>
+                <div id="cashInputContainer" style="display:none; margin-top:10px;">
+                    <label for="cashAmount">Enter Money:</label>
+                    <input type="number" id="cashAmount" min="0" placeholder="Enter cash amount">
+                    <p id="changeMsg" style="color:#ffb347; font-weight:600; margin-top:8px;"></p>
+                </div>
+                <button class="checkout-btn" onclick="submitCustomerInfo()">Submit</button>
+            </div>
+            <div id="thankYouMessage" style="display:none; text-align:center; color:#ffb347; font-size:1.5em; margin-bottom:20px;"></div>
+
+            <div class="about-us" id="aboutSection" style="display:none;">
+                <h2>About Us</h2>
+                <p>Welcome to BSCS Ordering System! We serve the best fast food in town with fresh ingredients and great taste.</p>
+            </div>
+
+            <div id="customerInfoContainer"></div>
         </div>
-        <div class="item">
-            <span>Softdrink - ₱20</span>
-            <button onclick="addToOrder('Softdrink', 20)">Add</button>
-        </div>
     </div>
-
-    <div class="order">
-        <h2>Your Order</h2>
-        <ul id="orderList"></ul>
-        <p>Total: ₱<span id="totalPrice">0</span></p>
-        <button onclick="checkout()">Checkout</button>
-    </div>
-
-     <div class="customer-info">
-    <h2>Customer Information</h2>
-    <label for="email">Email:</label>
-    <input type="email" id="email" placeholder="Enter your email" required>
-    
-    </div>
-
-    <div class="item">
-    <span>Burger - ₱50</span>
-    <p>A delicious beef burger with fresh lettuce and tomato.</p>
-    <button onclick="addToOrder('Burger', 50)">Add</button>
-    </div>
-
-    <div class="about-us">
-    <h2>About Us</h2>
-    <p>Welcome to BSCS Ordering System! We serve the best fast food in town with fresh ingredients and great taste.</p>
-    </div>
-
-
     <script src="index.js"></script>
 </body>
 </html>
