@@ -1,13 +1,48 @@
 <div class="customer-info" id="customerSection" style="display:none;">
     <h2>Customer Information</h2>
-    <label for="name">Name:</label>
-    <input type="text" id="name" placeholder="Enter your name" required>
-    <label for="feedback">Feedback:</label>
-    <textarea id="feedback" placeholder="Your feedback..." rows="3"></textarea>
-    <label for="payment">Mode of Payment:</label>
-    <select id="payment">
-        <option value="Cash">Cash</option>
-        <option value="Gcash">Gcash</option>
-    </select>
-    <button class="checkout-btn" onclick="submitCustomerInfo()">Submit</button>
+    
+    <!-- Order Summary -->
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div id="customerOrderList"></div>
+        <p id="customerTotal" style="color:#ffb347; font-size:1.3em; font-weight:600; margin-top:15px;"></p>
+    </div>
+
+    <div class="customer-form">
+        <label for="name">Customer Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" placeholder="Your feedback..." rows="3"></textarea>
+        
+        <label for="payment">Mode of Payment:</label>
+        <select id="payment" onchange="togglePaymentInput()">
+            <option value="Cash">Cash</option>
+            <option value="Gcash">Gcash</option>
+            <option value="PayPal">PayPal</option>
+        </select>
+
+        <!-- Cash Input -->
+        <div id="cashInputContainer" class="payment-input" style="display:none;">
+            <label for="cashAmount">Enter Cash Amount:</label>
+            <input type="number" id="cashAmount" min="0" placeholder="Enter cash amount">
+            <p id="changeMsg" style="color:#ffb347; font-weight:600; margin-top:8px;"></p>
+        </div>
+
+        <!-- Gcash Input -->
+        <div id="gcashInputContainer" class="payment-input" style="display:none;">
+            <label for="gcashNumber">Gcash Number:</label>
+            <input type="text" id="gcashNumber" placeholder="Enter Gcash number">
+            <p class="payment-note">Please send the payment to: 09XX-XXX-XXXX</p>
+        </div>
+
+        <!-- PayPal Input -->
+        <div id="paypalInputContainer" class="payment-input" style="display:none;">
+            <label for="paypalEmail">PayPal Email:</label>
+            <input type="email" id="paypalEmail" placeholder="Enter PayPal email">
+            <p class="payment-note">Please send the payment to: business@bscsorder.com</p>
+        </div>
+
+        <button class="checkout-btn" onclick="submitCustomerInfo()">Submit Order</button>
+    </div>
 </div>

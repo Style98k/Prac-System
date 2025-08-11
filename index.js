@@ -29,24 +29,45 @@ function saveOrderToDatabase(order, total) {
 
 function checkout() {
     const total = document.getElementById('totalPrice').innerText;
-    alert(`The total of your order is ₱${total}. Please fill out your information.`);
-    // Switch to Customer Info section
+    
+    // Switch to customer section
     showSection('customerSection');
-    // Display total in customer info
-    document.getElementById('customerTotal').innerText = `Total: ₱${total}`;
+    updateCustomerSection();
+    
+    if (orders.length > 0) {
+        alert(`The total of your order is ₱${total}. Please fill out your information.`);
+    }
 }
 
 function showSection(sectionId) {
-    const sections = ['menuSection', 'orderSection', 'customerSection', 'aboutSection'];
+    const sections = ['menuSection', 'orderSection', 'customerSection', 'aboutSection', 'contactSection'];
+    
+    // Hide all sections first
     sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = id === sectionId ? 'block' : 'none';
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = 'none';
+        }
     });
-    // Update sidebar active link if needed
+    
+    // Show the selected section
+    if (sectionId === 'homeSection') {
+        document.getElementById('homeSection').style.display = 'block';
+    } else {
+        const selectedSection = document.getElementById(sectionId);
+        if (selectedSection) {
+            selectedSection.style.display = 'block';
+        }
+    }
+    
+    // Update sidebar active link
     const sidebarLinks = document.querySelectorAll('.sidebar-content a');
     sidebarLinks.forEach(link => {
         link.classList.toggle('active', link.dataset.section === sectionId);
     });
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Load sidebar.html
@@ -58,35 +79,67 @@ fetch('sidebar.html')
     });
 
 function attachSidebarEvents() {
-    const sections = {
-        menuSection: document.getElementById('menuSection'),
-        orderSection: document.getElementById('orderSection'),
-        customerSection: document.getElementById('customerSection'),
-        aboutSection: document.getElementById('aboutSection')
-    };
     const sidebarLinks = document.querySelectorAll('.sidebar-content a');
     sidebarLinks.forEach(link => {
         link.onclick = (e) => {
             e.preventDefault();
-            sidebarLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-            Object.keys(sections).forEach(key => {
-                sections[key].style.display = link.dataset.section === key ? 'block' : 'none';
-            });
+            const sectionId = link.dataset.section;
+            
+            // Close sidebar after clicking
+            document.getElementById('sidebar').classList.remove('open');
+            
+            showSection(sectionId);
+            
+            // Update customer section if needed
+            if (sectionId === 'customerSection') {
+                updateCustomerSection();
+            }
         };
     });
-    // Default: show menu
-    Object.keys(sections).forEach(key => {
-        sections[key].style.display = key === 'menuSection' ? 'block' : 'none';
-    });
+
+    // Show home section by default when page loads
+    showSection('homeSection');
+}
+
+function updateCustomerSection() {
+    const customerOrderList = document.getElementById('customerOrderList');
+    const customerTotal = document.getElementById('customerTotal');
+
+    if (orders.length === 0) {
+        // Show a message if no orders
+        customerOrderList.innerHTML = '<div class="no-orders" style="text-align: center; padding: 20px; color: #bdbdbd;">No items in order yet. You can browse our menu to add items!</div>';
+        customerTotal.style.display = 'none';
+    } else {
+        // Show order details if there are orders
+        customerOrderList.innerHTML = '';
+        orders.forEach(order => {
+            const div = document.createElement('div');
+            div.className = 'order-item';
+            div.innerHTML = `
+                <span>${order.item}</span>
+                <span>₱${order.price}</span>
+            `;
+            customerOrderList.appendChild(div);
+        });
+        customerTotal.style.display = 'block';
+        customerTotal.innerText = `Total Amount: ₱${total}`;
+    }
 }
 
 // Sidebar open/close
 const sidebar = document.getElementById('sidebar');
 const sidebarIcon = document.getElementById('sidebarIcon');
-sidebarIcon.onclick = () => {
+sidebarIcon.onclick = (e) => {
+    e.stopPropagation(); // Prevent click from bubbling up
     sidebar.classList.toggle('open');
 };
+
+// Close sidebar when clicking outside
+document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target)) {
+        sidebar.classList.remove('open');
+    }
+});
 
 // Load customer.html
 fetch('customer.html')
@@ -96,12 +149,29 @@ fetch('customer.html')
         // Attach customer info events here if needed
     });
 
-function toggleCashInput() {
+function togglePaymentInput() {
     const payment = document.getElementById('payment').value;
-    const cashInputContainer = document.getElementById('cashInputContainer');
-    cashInputContainer.style.display = payment === 'Cash' ? 'block' : 'none';
-    document.getElementById('changeMsg').innerText = '';
-    document.getElementById('cashAmount').value = '';
+    const paymentContainers = {
+        'Cash': document.getElementById('cashInputContainer'),
+        'Gcash': document.getElementById('gcashInputContainer'),
+        'PayPal': document.getElementById('paypalInputContainer')
+    };
+
+    // Hide all containers first
+    Object.values(paymentContainers).forEach(container => {
+        if (container) container.style.display = 'none';
+    });
+
+    // Show the selected payment container
+    if (paymentContainers[payment]) {
+        paymentContainers[payment].style.display = 'block';
+    }
+
+    // Reset cash input if switching from cash
+    if (payment !== 'Cash') {
+        document.getElementById('changeMsg').innerText = '';
+        document.getElementById('cashAmount').value = '';
+    }
 }
 
 document.getElementById('payment').addEventListener('change', toggleCashInput);
@@ -159,5 +229,22 @@ function showThankYou(name, change) {
     setTimeout(() => {
         document.getElementById('thankYouMessage').style.display = 'none';
     }, 4000);
+}
+
+function copyToClipboard(elementId) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const button = event.target;
+        const originalText = button.innerText;
+        button.innerText = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
 }
 

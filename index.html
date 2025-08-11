@@ -15,71 +15,232 @@
         <div class="main-content">
             <h1>BSCS Ordering System</h1>
 
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <h2>Welcome to our Fastfood!</h2>
-                <p>
-                    Enjoy delicious meals, quick service, and affordable prices. 
-                    Order your favorites and experience the best fastfood in town!
-                </p>
+            <!-- Home Section -->
+            <div id="homeSection">
+                <div class="welcome-section">
+                    <h2>Welcome to our Fastfood!</h2>
+                    <p>
+                        Enjoy delicious meals, quick service, and affordable prices. 
+                        Order your favorites and experience the best fastfood in town!
+                    </p>
+                </div>
+
+                <!-- Featured Menu Preview -->
+                <div class="home-menu-preview">
+                    <h2>Our Featured Menu</h2>
+                    <div class="menu-grid">
+                        <div class="item">
+                            <img src="2423433.png" alt="Burger" class="item-img">
+                            <span>Burger - ₱50</span>
+                            <p>Juicy beef patty with fresh vegetables</p>
+                        </div>
+                        <div class="item">
+                            <img src="413291.png" alt="Fries" class="item-img">
+                            <span>Fries - ₱30</span>
+                            <p>Crispy golden fries</p>
+                        </div>
+                        <div class="item">
+                            <img src="13910122.png" alt="Softdrink" class="item-img">
+                            <span>Softdrink - ₱20</span>
+                            <p>Refreshing cold drinks</p>
+                        </div>
+                    </div>
+                    <button class="view-menu-btn" onclick="showSection('menuSection')">View Full Menu</button>
+                </div>
+
+                <!-- Quick About Preview -->
+                <div class="home-about-preview">
+                    <h2>About Us</h2>
+                    <p>Welcome to BSCS Ordering System! We serve the best fast food in town with fresh ingredients and great taste.</p>
+                    <button class="learn-more-btn" onclick="showSection('aboutSection')">Learn More</button>
+                </div>
+
+                <!-- Contact Preview -->
+                <div class="home-contact-preview">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-preview-grid">
+                        <div class="contact-preview-item">
+                            <h3>Location</h3>
+                            <p>123 Main Street, Quezon City</p>
+                        </div>
+                        <div class="contact-preview-item">
+                            <h3>Hours</h3>
+                            <p>10:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                    <button class="contact-btn" onclick="showSection('contactSection')">Contact Us</button>
+                </div>
             </div>
 
             <!-- Menu Section -->
             <div class="menu" id="menuSection">
-                <h2>Menu</h2>
+                <h2>Our Menu</h2>
                 <div class="menu-grid">
                     <div class="item">
                         <img src="2423433.png" alt="Burger" class="item-img">
                         <span>Burger - ₱50</span>
-                        <p>Juicy beef patty, fresh lettuce, tomato, and cheese in a soft bun. Perfect for your cravings!</p>
-                        <button onclick="addToOrder('Burger', 50)">Add</button>
+                        <p>Juicy beef patty with fresh lettuce, tomato, and melted cheese in a perfectly toasted bun.</p>
+                        <button onclick="addToOrder('Burger', 50)">Add to Order</button>
                     </div>
                     <div class="item">
                         <img src="413291.png" alt="Fries" class="item-img">
                         <span>Fries - ₱30</span>
-                        <p>Crispy golden fries, lightly salted and served hot. The perfect side for any meal!</p>
-                        <button onclick="addToOrder('Fries', 30)">Add</button>
+                        <p>Golden crispy fries, perfectly seasoned and served piping hot.</p>
+                        <button onclick="addToOrder('Fries', 30)">Add to Order</button>
                     </div>
                     <div class="item">
                         <img src="13910122.png" alt="Softdrink" class="item-img">
                         <span>Softdrink - ₱20</span>
-                        <p>Refreshing cold softdrink to complete your meal. Choose from Coke, Sprite, or Royal!</p>
-                        <button onclick="addToOrder('Softdrink', 20)">Add</button>
+                        <p>Ice-cold refreshing drink. Choose from Coke, Sprite, or Royal.</p>
+                        <button onclick="addToOrder('Softdrink', 20)">Add to Order</button>
+                    </div>
+                    <div class="item">
+                        <img src="790346.png" alt="Pizza" class="item-img">
+                        <span>Pizza - ₱199</span>
+                        <p>Fresh-baked pizza with rich tomato sauce, melted mozzarella, and your choice of toppings.</p>
+                        <button onclick="addToOrder('Pizza', 199)">Add to Order</button>
+                    </div>
+                    <div class="item">
+                        <img src="1161626.png" alt="Cake" class="item-img">
+                        <span>Cake - ₱89</span>
+                        <p>Delicious slice of cake. Choose from Chocolate, Vanilla, or Strawberry flavors.</p>
+                        <button onclick="addToOrder('Cake', 89)">Add to Order</button>
+                    </div>
+                    <div class="item">
+                        <img src="5049294.png" alt="Spaghetti" class="item-img">
+                        <span>Spaghetti - ₱75</span>
+                        <p>Filipino-style sweet spaghetti with meat sauce and cheese on top.</p>
+                        <button onclick="addToOrder('Spaghetti', 75)">Add to Order</button>
                     </div>
                 </div>
             </div>
 
-            <div class="order" id="orderSection" style="display:none;">
+            <div class="section-divider"></div>
+
+            <div class="order" id="orderSection">
                 <h2>Your Order</h2>
                 <ul id="orderList"></ul>
                 <p>Total: ₱<span id="totalPrice">0</span></p>
                 <button class="checkout-btn" onclick="checkout()">Checkout</button>
             </div>
 
-            <div class="customer-info" id="customerSection" style="display:none;">
+            <div class="section-divider"></div>
+
+            <div class="customer-info" id="customerSection">
                 <h2>Customer Information</h2>
-                <p id="customerTotal" style="color:#ffb347; font-size:1.15em; font-weight:600; margin-bottom:10px;"></p>
-                <label for="name">Customer Name:</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
-                <label for="feedback">Feedback:</label>
-                <textarea id="feedback" placeholder="Your feedback..." rows="3"></textarea>
-                <label for="payment">Mode of Payment:</label>
-                <select id="payment" onchange="toggleCashInput()">
-                    <option value="Cash">Cash</option>
-                    <option value="Gcash">Gcash</option>
-                </select>
-                <div id="cashInputContainer" style="display:none; margin-top:10px;">
-                    <label for="cashAmount">Enter Money:</label>
-                    <input type="number" id="cashAmount" min="0" placeholder="Enter cash amount">
-                    <p id="changeMsg" style="color:#ffb347; font-weight:600; margin-top:8px;"></p>
+                
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="customerOrderList"></div>
+                    <p id="customerTotal" style="color:#ffb347; font-size:1.3em; font-weight:600; margin-top:15px;"></p>
                 </div>
-                <button class="checkout-btn" onclick="submitCustomerInfo()">Submit</button>
+
+                <div class="customer-form">
+                    <label for="name">Customer Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                    
+                    <label for="feedback">Feedback:</label>
+                    <textarea id="feedback" placeholder="Your feedback..." rows="3"></textarea>
+                    
+                    <label for="payment">Mode of Payment:</label>
+                    <select id="payment" onchange="togglePaymentInput()">
+                        <option value="Cash">Cash</option>
+                        <option value="Gcash">Gcash</option>
+                        <option value="PayPal">PayPal</option>
+                    </select>
+
+                    <!-- Cash Input -->
+                    <div id="cashInputContainer" class="payment-input" style="display:none;">
+                        <label for="cashAmount">Enter Cash Amount:</label>
+                        <input type="number" id="cashAmount" min="0" placeholder="Enter cash amount">
+                        <p id="changeMsg" style="color:#ffb347; font-weight:600; margin-top:8px;"></p>
+                    </div>
+
+                    <!-- Gcash Input -->
+                    <div id="gcashInputContainer" class="payment-input" style="display:none;">
+                        <label for="gcashNumber">Gcash Number:</label>
+                        <input type="text" id="gcashNumber" placeholder="Enter Gcash number">
+                        <p class="payment-note">Please send the payment to: 09XX-XXX-XXXX</p>
+                    </div>
+
+                    <!-- PayPal Input -->
+                    <div id="paypalInputContainer" class="payment-input" style="display:none;">
+                        <label for="paypalEmail">PayPal Email:</label>
+                        <input type="email" id="paypalEmail" placeholder="Enter PayPal email">
+                        <p class="payment-note">Please send the payment to: business@bscsorder.com</p>
+                    </div>
+
+                    <button class="checkout-btn" onclick="submitCustomerInfo()">Submit Order</button>
+                </div>
             </div>
             <div id="thankYouMessage" style="display:none; text-align:center; color:#ffb347; font-size:1.5em; margin-bottom:20px;"></div>
 
-            <div class="about-us" id="aboutSection" style="display:none;">
-                <h2>About Us</h2>
-                <p>Welcome to BSCS Ordering System! We serve the best fast food in town with fresh ingredients and great taste.</p>
+            <div class="section-divider"></div>
+
+            <div class="about-us" id="aboutSection">
+                <h2>About BSCS Ordering System</h2>
+                <div class="about-content">
+                    <div class="about-section">
+                        <h3>Our Story</h3>
+                        <p>Welcome to BSCS Ordering System! We started our journey with a simple mission - to serve delicious, quality fast food that brings joy to our customers. Since our establishment, we've focused on creating a welcoming environment where everyone can enjoy great food at affordable prices.</p>
+                    </div>
+
+                    <div class="about-section">
+                        <h3>Customer Experience</h3>
+                        <p>Your satisfaction is our top priority. Our friendly staff is always ready to assist you, and our efficient ordering system ensures a smooth and enjoyable experience every time you visit us. We strive to make every visit memorable with great food and excellent service.</p>
+                    </div>
+
+                    <div class="about-values">
+                        <h3>Our Core Values</h3>
+                        <div class="values-grid">
+                            <div class="value-item">
+                                <h4>Quality</h4>
+                                <p>We use only the finest ingredients to ensure every meal exceeds expectations.</p>
+                            </div>
+                            <div class="value-item">
+                                <h4>Service</h4>
+                                <p>Dedicated to providing exceptional customer experiences every time.</p>
+                            </div>
+                            <div class="value-item">
+                                <h4>Cleanliness</h4>
+                                <p>Maintaining the highest standards of cleanliness and food safety.</p>
+                            </div>
+                            <div class="value-item">
+                                <h4>Innovation</h4>
+                                <p>Continuously improving our menu and services to serve you better.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="contact" id="contactSection">
+                <h2>Contact Us</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Address</h3>
+                        <p id="address">123 Main Street, Quezon City, Philippines</p>
+                        <button class="copy-btn" onclick="copyToClipboard('address')">Copy Address</button>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <p id="phone">+63 912 345 6789</p>
+                        <button class="copy-btn" onclick="copyToClipboard('phone')">Copy Phone</button>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p id="email">info@bscsorderingsystem.com</p>
+                        <button class="copy-btn" onclick="copyToClipboard('email')">Copy Email</button>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Business Hours</h3>
+                        <p id="hours">Monday - Sunday: 10:00 AM - 10:00 PM</p>
+                        <button class="copy-btn" onclick="copyToClipboard('hours')">Copy Hours</button>
+                    </div>
+                </div>
             </div>
 
             <div id="customerInfoContainer"></div>
